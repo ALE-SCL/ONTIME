@@ -1,23 +1,22 @@
 # Interfaz Web (Streamlit)
-streamlit==1.32.0
+streamlit>=1.32.0
 
 # Procesamiento de Audio y Multimedia
-pydub==0.25.1
+pydub
 
 # API y Red
-elevenlabs==1.10.0
-requests==2.31.0
-python-dotenv==1.0.1
+elevenlabs
+requests
+python-dotenv
 
 # Seguridad
-keyring==24.3.1
-cryptography==42.0.0
+keyring
+cryptography
 
 # Motor de Audio y Masterización (DSP)
-pedalboard==0.9.19
-soundfile==0.12.1
-numpy==1.26.4
+pedalboard
+soundfile
+numpy
 
 # Utilidades y Compatibilidad con SO
-platformdirs==3.9.1
-pyobjc==9.2 ; sys_platform == 'darwin'
+platformdirs
