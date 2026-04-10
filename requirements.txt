@@ -1,6 +1,5 @@
 # Interfaz Web (Streamlit)
 streamlit==1.32.0
-pygame==2.5.2 # Para pre-escucha si fuera necesario en el servidor local
 
 # Procesamiento de Audio y Multimedia
 pydub==0.25.1
