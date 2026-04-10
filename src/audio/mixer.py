@@ -38,9 +38,8 @@ class AudioMixer:
         ranges = detect_nonsilent(voice, min_silence_len=800, silence_thresh=-40)
         last_voice_end = ranges[-1][1] if ranges else len(voice)
 
-        # 2. Punto de Transición: 500ms antes de que termine la voz
-        # Aquí es donde la cama muere y el outro nace.
-        transition_point = max(0, last_voice_end - 500)
+        # 2. Punto de Transición: 600ms después de que termine la voz
+        transition_point = last_voice_end + 600
 
         # 3. Preparar la cama musical solo hasta el punto de transición
         music_track = cama_original
@@ -78,14 +77,12 @@ class AudioMixer:
                 trans_up = music_ducked[u_start:u_end].fade_out(dur).overlay(music_bridge[u_start:u_end].fade_in(dur))
                 final_music_cama = final_music_cama[:u_start] + trans_up + final_music_cama[u_end:]
 
-        # 5. FUNDIR CON EL OUTRO (Fade in muy corto mediante crossfade de 200ms)
-        # El remate comienza exactamente 500ms antes del fin de la voz.
+        # 5. FUNDIR CON EL OUTRO (Fade in mediante crossfade de 200ms)
+        # El remate comienza exactamente 600ms después del fin de la voz.
         outro_norm = outro.normalize(headroom=abs(self.MUSIC_BRIDGE))
         full_music_track = final_music_cama.append(outro_norm, crossfade=200)
 
         # 6. Mezcla Final: Superponemos la voz sobre esta nueva pista musical
-        # Como la voz dura 500ms más que el punto donde empezó el outro, 
-        # el final de la frase quedará "arropado" por el inicio del remate.
         final_audio = full_music_track.overlay(voice)
 
         # 7. Normalización Final a -3 dB

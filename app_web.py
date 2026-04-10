@@ -4,9 +4,13 @@ from pathlib import Path
 from src.audio.api_client import ElevenLabsClient, AVAILABLE_VOICES
 from src.audio.dsp import AudioProcessor
 from src.audio.mixer import AudioMixer
+from src.utils.db_manager import init_db
 
 # Configuración de Página
 st.set_page_config(page_title="ON TIME - Radio Automation", page_icon="🎙️")
+
+# Inicializar Base de Datos
+init_db()
 
 st.title("🎙️ ON TIME - Radio Automation")
 st.markdown("Sistema profesional de locución radial con post-producción automática.")
