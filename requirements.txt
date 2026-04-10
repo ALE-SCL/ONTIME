@@ -3,7 +3,7 @@ streamlit>=1.32.0
 
 # Procesamiento de Audio y Multimedia
 pydub
-audioop-lpm  # Compatibilidad para Python 3.13+
+audioop-copy  # Parche crítico para Python 3.13+
 
 # API y Red
 elevenlabs
