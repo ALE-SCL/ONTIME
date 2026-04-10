@@ -1,0 +1,24 @@
+# Interfaz Web (Streamlit)
+streamlit==1.32.0
+pygame==2.5.2 # Para pre-escucha si fuera necesario en el servidor local
+
+# Procesamiento de Audio y Multimedia
+pydub==0.25.1
+
+# API y Red
+elevenlabs==1.10.0
+requests==2.31.0
+python-dotenv==1.0.1
+
+# Seguridad
+keyring==24.3.1
+cryptography==42.0.0
+
+# Motor de Audio y Masterización (DSP)
+pedalboard==0.9.19
+soundfile==0.12.1
+numpy==1.26.4
+
+# Utilidades y Compatibilidad con SO
+platformdirs==3.9.1
+pyobjc==9.2 ; sys_platform == 'darwin'
