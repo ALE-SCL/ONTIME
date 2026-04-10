@@ -13,6 +13,7 @@ st.set_page_config(page_title="ON TIME - Radio Automation", page_icon="🎙️")
 init_db()
 
 st.title("🎙️ ON TIME - Radio Automation")
+st.caption("v2.1 - Cloud Optimized")
 st.markdown("Sistema profesional de locución radial con post-producción automática.")
 
 # Inicializar clientes
