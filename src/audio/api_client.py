@@ -11,21 +11,21 @@ AVAILABLE_VOICES: Dict[str, Dict] = {
         "id": "X154G7FAoyNV4grCKAe1",
         "key_identifier": "Fernando_P"
     },
-    "Ricardo-1": {
+    "RICARDO_1": {
         "id": "KqOWeICsh4ncqaTQlehb",
-        "key_identifier": "Ricardo-1"
+        "key_identifier": "RICARDO_1"
     },
-    "Milena-1": {
+    "RICARDO_2": {
+        "id": "PrvSOldH32de0Ovbqmaz",
+        "key_identifier": "RICARDO_2"
+    },
+    "MILENA_1": {
+        "id": "chqjP7q1s4cuHUFJ3CHv",
+        "key_identifier": "MILENA_1"
+    },
+    "MILENA_2": {
         "id": "Wtl9vUInpKWLp0jtGnxi",
-        "key_identifier": "Milena-1"
-    },
-    "Ricardo-2": {
-        "id": "ID_PLACEHOLDER_R2", # Placeholder
-        "key_identifier": "default"
-    },
-    "Milena-2": {
-        "id": "ID_PLACEHOLDER_M2", # Placeholder
-        "key_identifier": "default"
+        "key_identifier": "MILENA_2"
     }
 }
 

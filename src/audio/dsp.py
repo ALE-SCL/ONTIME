@@ -43,9 +43,38 @@ class AudioProcessor:
             Gain(gain_db=0)
         ])
 
+    def _trim_silence(self, audio: np.ndarray, threshold: float = 0.003) -> np.ndarray:
+        """
+        Recorta el silencio al inicio y al final del audio basándose en un umbral de amplitud.
+        threshold: 0.003 es aproximadamente -50dB.
+        """
+        # Calcular el valor absoluto máximo a través de los canales si es estéreo
+        if len(audio.shape) > 1:
+            amplitude = np.max(np.abs(audio), axis=0)
+        else:
+            amplitude = np.abs(audio)
+
+        # Encontrar los índices que superan el umbral
+        mask = amplitude > threshold
+        if not np.any(mask):
+            return audio # Si no hay nada por encima del umbral, devolver original
+
+        start_index = np.argmax(mask)
+        end_index = len(mask) - np.argmax(mask[::-1])
+        
+        # Añadir un pequeño margen de 50ms para no cortar abruptamente (respiraciones)
+        margin = int(0.05 * 44100) # Aproximado para 44.1kHz
+        start_index = max(0, start_index - margin)
+        end_index = min(len(mask), end_index + margin)
+
+        if len(audio.shape) > 1:
+            return audio[:, start_index:end_index]
+        else:
+            return audio[start_index:end_index]
+
     def process_voice(self, input_path: Path) -> Path:
         """
-        Aplica la cadena de masterización a un archivo de audio.
+        Aplica la cadena de masterización a un archivo de audio con recorte de silencio.
         """
         output_path = self.output_dir / f"proc_{input_path.stem}.wav"
         
@@ -55,17 +84,20 @@ class AudioProcessor:
             audio = f.read(f.frames)
             samplerate = f.samplerate
         
-        # Aplicar la cadena de efectos
+        # 1. Recortar silencios de ElevenLabs (Trimming)
+        audio = self._trim_silence(audio)
+
+        # 2. Aplicar la cadena de efectos
         processed_audio = self.board(audio, samplerate)
         
-        # Normalización a -3 dB (Pico Máximo)
+        # 3. Normalización a -3 dB (Pico Máximo)
         max_val = np.max(np.abs(processed_audio))
         if max_val > 0:
             target_peak = 10 ** (-3 / 20)
             normalization_gain = target_peak / max_val
             processed_audio *= normalization_gain
 
-        # Guardar el resultado en WAV
+        # 4. Guardar el resultado en WAV
         sf.write(str(output_path), processed_audio.T, samplerate)
         
         print(f"Audio masterizado con éxito: {output_path}")
